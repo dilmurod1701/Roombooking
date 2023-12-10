@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import login
 from rest_framework.generics import CreateAPIView
 
-from .serializers import LoginSerializer, SignupSerializer
+from .serializers import LoginSerializer
 # Create your views here.
 
 
