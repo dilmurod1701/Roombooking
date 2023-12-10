@@ -26,3 +26,17 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
+
+class User(AbstractUser):
+    username = None
+    email = None
+    phone = models.CharField(_('Phone number'), unique=True, max_length=15)
+
+    USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    def __str__(self):
+        return self.phone
