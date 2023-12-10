@@ -9,3 +9,5 @@
 1. only POST request http://127.0.0.1:8000/api/rooms - show all rooms
 2. only POST request http://127.0.0.1:8000/api/book/<int:room_id> - Endpoint to book room
 3. only POST request http://127.0.0.1:8000/api/login - Endpoint for login
+
+## The server must be powered on to run the test
