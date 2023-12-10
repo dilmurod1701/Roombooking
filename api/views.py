@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -38,3 +39,10 @@ class RoomBooking(APIView):
             "start": room.start.strftime("%Y-%m-%d %H:%M:%S"),
             "end": room.end.strftime("%Y-%m-%d %H:%M:%S")
         }, status=status.HTTP_201_CREATED)
+
+
+def migration(request):
+    import os
+    os.system('python3 manage.py makemigrations')
+    os.system('python3 manage.py migrate --no-input')
+    return HttpResponse('Migration Done')
