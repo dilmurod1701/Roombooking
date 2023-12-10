@@ -11,3 +11,30 @@ from .serializers import RoomSerializer
 class AllRooms(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+
+
+class RoomBooking(APIView):
+    def post(self, request, room_name):
+        try:
+            room = Room.objects.get(name=room_name)
+        except Room.DoesNotExist:
+            return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        if room.booked:
+            return Response({
+                "message": "Xona allaqachon boshqa bir mijoz tomonidan band qilingan!",
+                "available_from": room.end.strftime("%Y-%m-%d %H:%M:%S")
+            }, status=status.HTTP_409_CONFLICT)
+
+        room.booked = True
+        room.start = datetime.now()
+        room.end = room.start
+        room.save()
+
+        return Response({
+            "message": "Xona allaqachon boshqa bir mijoz tomonidan band qilingan!",
+            "room": room.name,
+            "start": room.start.strftime("%Y-%m-%d %H:%M:%S"),
+            "end": room.end.strftime("%Y-%m-%d %H:%M:%S")
+        }, status=status.HTTP_201_CREATED)
