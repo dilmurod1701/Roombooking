@@ -17,7 +17,7 @@ class AllRooms(generics.ListAPIView):
 class RoomBooking(APIView):
     def post(self, request, room_name):
         try:
-            room = Room.objects.get(name=room_name)
+            room = Room.objects.get(id=room_name)
         except Room.DoesNotExist:
             return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"},
                             status=status.HTTP_404_NOT_FOUND)

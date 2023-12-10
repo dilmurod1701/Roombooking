@@ -21,11 +21,3 @@ class LoginView(APIView):
         user = serializer.validated_data['user']
         login(request, user)
         return Response('Muvafaqiiyatli otdingiz')
-
-
-class Signup(CreateAPIView):
-    """
-    Endpoint for signup.You need to enter the username and password
-    """
-    serializer_class = SignupSerializer
-    permission_classes = [permissions.AllowAny]
